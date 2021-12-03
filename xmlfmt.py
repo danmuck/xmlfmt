@@ -187,7 +187,7 @@ os.system('./xtra.sh')
 def app_file(ctx):
     lin_dir = f'./xml_projects/{P_NAME}.xml'
     win_dir = f'.\\xml_projects\\{P_NAME}.xml'
-    if (os.name) == 'nt':
+    if (os.name) is 'nt':
         os.system(f"echo '{str(ctx)}' >> {win_dir}")
     else:
         os.system(f"echo '{str(ctx)}' >> {lin_dir}")
