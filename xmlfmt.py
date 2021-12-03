@@ -182,7 +182,7 @@ def xml_activity():
 
 #RUN
 print('\n\n :: Welcome to XMLfmt :: \n')
-os.system('./xmlfmt.sh')
+os.system('./xtra.sh')
 
 def app_file(ctx):
     lin_dir = f'./xml_projects/{P_NAME}.xml'
