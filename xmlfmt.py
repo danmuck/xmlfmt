@@ -15,23 +15,31 @@ def p_start():
         global P_NAME
         P_NAME = input('Project Name:\n')
         app_file(f'  :: {P_NAME} :: \n\n<xml>')
-        nc_check()
+        app_menu()
     elif cmd_start == '?':
         print(''' 
 
     XMLil-Help
         enter: #
             f: initialize new [project_name].xml
+            e: menu for current [project_name].xml
             w: end xml file
-            r: replace [project_name]
-            k: kill current file (rm -rf project_name.xml)
+            r: change active [project_name].xml
+            k: kill current project (rm -rf project_name.xml)
             q: exit
 
                 ''')
         p_start()
 
+    elif cmd_start == 'e':
+        if os.path.exists(f'./xml_projects/{P_NAME}.xml'):
+            app_menu()
+        else:
+            print('Not currently working on a project...')
+            p_start()
+
     elif cmd_start == 'w':
-        app_file('</xml>\n\n\n\n\n\t\t created with XMLfmt :) \n\n\n\n\n')
+        app_file('</xml>\n\n')
         P_NAME = input('\nNew project name: ')
         p_start()
 
@@ -46,7 +54,7 @@ def p_start():
 
     elif cmd_start == 'r':
         P_NAME = input('\nNew project name: ')
-        nc_check()
+        app_menu()
 
     elif cmd_start =='q':
         return exit
@@ -60,26 +68,26 @@ def p_start():
     else:
         p_start()
 
-def nc_check():
-    n_c = input('\n\n [c]new_class\n [a]new_activity\n [f]new_xmlblock\n [p]preview\n [q]back\n\n:')
-    if n_c == 'c':
+def app_menu():
+    m_opt = input('\n\n [c]new_class\n [a]new_activity\n [f]new_xmlblock\n [p]preview\n [q]back\n\n:')
+    if m_opt == 'c':
         xml_class()
 
-    elif n_c == 'f':
+    elif m_opt == 'f':
         app_file(f'\n\n<xml>')
         xml_class()
 
-    elif n_c == 'p':
+    elif m_opt == 'p':
         print(f'Preview of {P_NAME}.xml:\n\n')
         pre_cat()
         print('\n\n')  
-        nc_check()
+        app_menu()
 
-    elif n_c == 'q':
+    elif m_opt == 'q':
         p_start()
 
     else:
-        nc_check()
+        app_menu()
 
 #CLASSES
 def xml_class():
@@ -239,29 +247,36 @@ print('\n\n :: Welcome to XMLfmt :: \n')
 def mk_dir():
     if platform.system() == 'Windows' and not os.path.exists('.\\xml_projects'):
         os.system(f'mkdir xml_projects')
-        os.system(f'echo "Saving files to .\\xml_projects"')
+        print('Saving files to .\\xml_projects')
     elif platform.system() == 'Windows' and os.path.exists('.\\xml_projects'):
-        os.system(f'echo "Saving files to .\\xml_projects"')
+        print('Saving files to .\\xml_projects')
     elif not os.path.exists('./xml_projects'):
-        # os.system('./xtra.sh')
         os.system(f'mkdir xml_projects')
-        os.system(f'echo "Saving files to ./xml_projects"')
+        print('Saving files to ./xml_projects')
     else:
-        os.system(f'echo "Saving files to ./xml_projects"')
+        print('Saving files to ./xml_projects')
 
 def app_file(ctx):
     lin_dir = f'./xml_projects/{P_NAME}.xml'
     win_dir = f'.\\xml_projects\\{P_NAME}.xml'
     if platform.system() == 'Windows':
-        os.system(f"echo '{str(ctx)}' >> {win_dir}")
+        with open(f'{win_dir}', 'a') as f:
+            f.write(f'{str(ctx)}\n')
+        with open(f'{win_dir}', 'r') as o:
+            print('\n\n' + o.read())
     else:
-        os.system(f"echo '{str(ctx)}' >> {lin_dir}")
+        with open(f'{lin_dir}', 'a') as f:
+            f.write(f'{str(ctx)}\n')
+        with open(f'{lin_dir}', 'r') as o:
+            print('\n\n' + o.read())
    
 def pre_cat():
     if platform.system() == 'Windows':
-        os.system(f'cat .\\xml_projects\\{P_NAME}.xml')
+        with open(f'.\\xml_projects\\{P_NAME}.xml', 'r') as o:
+            print('\n\n' + o.read())        
     else:
-        os.system(f'cat ./xml_projects/{P_NAME}.xml')
+        with open(f'./xml_projects/{P_NAME}.xml', 'r') as o:
+            print('\n\n' + o.read())
   
 mk_dir()
 p_start()
