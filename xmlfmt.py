@@ -1,6 +1,6 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
-# basic XML formatter in Python3 + BASH 
+# basic [in progress] XML formatter in Python3 + BASH 
 # *maybe works with Powershell on Windows
 
 import os, platform
