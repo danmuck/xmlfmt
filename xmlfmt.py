@@ -242,7 +242,6 @@ def ac_prompt():
         ac_prompt()
 
 #RUN
-print('\n\n :: Welcome to XMLfmt :: \n')
 
 def mk_dir():
     if platform.system() == 'Windows' and not os.path.exists('.\\xml_projects'):
@@ -278,6 +277,7 @@ def pre_cat():
         with open(f'./xml_projects/{P_NAME}.xml', 'r') as o:
             print('\n\n' + o.read())
   
+print('\n\n :: Welcome to XMLfmt :: \n')
 mk_dir()
 p_start()
 
