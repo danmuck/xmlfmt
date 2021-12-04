@@ -3,10 +3,10 @@
 # basic XML formatter in Python3 + BASH 
 # *maybe works with Powershell on Windows
 
-import os
+import os, platform
 
 P_NAME = str
-
+      
 def p_start():
     cmd_start = input('\n\n [f] if starting with a new project or [?] for more options. \n\n:')
     if cmd_start == '':
@@ -37,8 +37,10 @@ def p_start():
 
     elif cmd_start == 'k':
         def kill_script():
-            #posix
-            os.system(f'rm -rf ./xml_projects/{P_NAME}.xml')
+            if (platform.system) == 'Windows':
+                os.system(f'rm -rf .\\xml_projects\\{P_NAME}.xml')
+            else:
+                os.system(f'rm -rf ./xml_projects/{P_NAME}.xml')
         kill_script()
         p_start()
 
@@ -51,7 +53,8 @@ def p_start():
 
     elif cmd_start =='p':
         print(f'Preview of {P_NAME}.xml:\n\n')
-        os.system(f'cat ./xml_projects/{P_NAME}.xml')
+        pre_cat()
+        # os.system(f'cat ./xml_projects/{P_NAME}.xml')
         print('\n\n')
         p_start()
 
@@ -86,10 +89,10 @@ def xml_class():
     c_prompt()
 
 def c_prompt(): 
-    choice = input('\n[1]i [2]pb [3]p [4]mb [5]m [f]nc [w]ec [p]pr [?]help\n\n:')
+    choice = input('Class | \n| [1]inherits [2]property(b) [3]property(n/t) [4]method(b) [5]method(o)\n| [f]new [w]end [p]pr [?]help\n\n:')
 
     if choice == '?':
-        print('\nAdd \n [1]inheritance\n [2]property(basic)\n [3]property(name/type)\n [4]method(basic)\n [5]method(options)\n [f]newclass\n [w]endclass \n [p]preview \n [q]exit')
+        print('\n\n [1]inheritance\n [2]property(basic)\n [3]property(name/type)\n [4]method(basic)\n [5]method(options)\n [f]newclass\n [w]endclass \n [p]preview \n [q]exit\n\n')
         c_prompt()
 
     elif choice == 'f':
@@ -121,7 +124,6 @@ def c_prompt():
         app_file(f'\t\t<property>\n\t\t\t<name>{p_name}</name>\n\t\t\t<type>{p_type}</type>\n\t\t</property>')
         c_prompt()
 
-
     elif choice == '4':
         mb_name = input('Method name: ')
         app_file(f'\t\t<method>\n\t\t\t<name>{mb_name}</name>\n\t\t</method>')
@@ -140,11 +142,11 @@ def c_prompt():
 
 #METHOD OPTIONS
 def m_add():
-    a_opt = input('\nAdd \n [1]parameter\n [2]return\n [3]endmethod \n\n:')
+    a_opt = input('\nMethod |\n [1]parameter\n [2]return statement\n [w]endmethod \n\n:')
     if a_opt == '1':
         app_file(f'\t\t\t<parameter>')
         def m_params():
-            m_param = input('\n [1]name\n [2]type\n [3]endparam \n\n:')
+            m_param = input('\nParameter |\n [1]name\n [2]type\n [w]endparam \n\n:')
             if m_param == '1':
                 param_name = input('Name: ')
                 app_file(f'\t\t\t\t<name>{param_name}</name>')
@@ -153,7 +155,7 @@ def m_add():
                 param_type = input('Type: ')
                 app_file(f'\t\t\t\t<type>{param_type}</type>')
                 m_params()
-            elif m_param == '3':
+            elif m_param == 'w':
                 app_file(f'\t\t\t</parameter>')
                 m_add()
             else:
@@ -167,7 +169,7 @@ def m_add():
             m_add()
         m_returns()
 
-    elif a_opt == '3':
+    elif a_opt == 'w':
         app_file(f'\t\t</method>')
         c_prompt()
     
@@ -178,18 +180,87 @@ def m_add():
 def xml_activity():
     a_name = input('\nPlease enter a name for an activity\n\n:')
     app_file(f'\t<activity>\n\t\t<name>{a_name}</name>')
-    c_prompt()
+    ac_prompt()
+
+def ac_prompt(): 
+    choice = input('Activity | \n| [1]statement [2]selection [3] [4] [5]\n| [f]new [w]end [p]pr [?]help\n\n:')
+
+    if choice == '?':
+        print('\n\n [1]\n [2]\n [3]\n [4]\n [5]\n [f]newactivity\n [w]endactivity \n [p]preview \n [q]exit\n\n')
+        ac_prompt()
+
+    elif choice == 'f':
+        xml_activity()
+
+    elif choice == 'w':
+        app_file(f'\t</activity>')
+        ac_prompt()
+
+    elif choice == 'p':
+        print(f'Preview of {P_NAME}.xml:\n\n')
+        os.system(f'cat ./xml_projects/{P_NAME}.xml')
+        print('\n\n')
+        ac_prompt()
+
+    elif choice == '1':
+        inh_name = input('Inherits: ')
+        app_file(f'\t\t<inherits>{inh_name}</inherits>')
+        ac_prompt()
+
+    elif choice == '2':
+        pb_name = input('Property Name: ')
+        app_file(f'\t\t<property>\n\t\t\t<name>{pb_name}</name>\n\t\t</property>')
+        ac_prompt()
+
+    elif choice == '3':
+        p_name = input('Property Name: ')
+        p_type = input('Property Type: ')
+        app_file(f'\t\t<property>\n\t\t\t<name>{p_name}</name>\n\t\t\t<type>{p_type}</type>\n\t\t</property>')
+        ac_prompt()
+
+    elif choice == '4':
+        mb_name = input('Method name: ')
+        app_file(f'\t\t<method>\n\t\t\t<name>{mb_name}</name>\n\t\t</method>')
+        ac_prompt()
+
+    elif choice == '5':
+        m_name = input('Method name: ')
+        app_file(f'\t\t<method>\n\t\t\t<name>{m_name}</name>')
+        m_add()
+    
+    elif choice == 'q':
+        p_start()
+
+    else:
+        ac_prompt()
 
 #RUN
 print('\n\n :: Welcome to XMLfmt :: \n')
-os.system('./xtra.sh')
+
+def mk_dir():
+    if (platform.system) == 'Linux':
+        os.system('./xtra.sh')
+    else:
+        os.system(f'mkdir xml_projects')
+        os.system(f'echo "Saving files to .\\xml_projects"')
 
 def app_file(ctx):
     lin_dir = f'./xml_projects/{P_NAME}.xml'
     win_dir = f'.\\xml_projects\\{P_NAME}.xml'
-    if (os.name) is 'nt':
+    if (platform.system) == 'Windows':
         os.system(f"echo '{str(ctx)}' >> {win_dir}")
     else:
         os.system(f"echo '{str(ctx)}' >> {lin_dir}")
    
+def pre_cat():
+    if (platform.system) == 'Windows':
+        os.system(f'cat .\\xml_projects\\{P_NAME}.xml')
+    else:
+        os.system(f'cat ./xml_projects/{P_NAME}.xml')
+  
+
+
+mk_dir()
 p_start()
+
+
