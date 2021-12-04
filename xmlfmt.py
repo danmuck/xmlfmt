@@ -54,7 +54,6 @@ def p_start():
     elif cmd_start =='p':
         print(f'Preview of {P_NAME}.xml:\n\n')
         pre_cat()
-        # os.system(f'cat ./xml_projects/{P_NAME}.xml')
         print('\n\n')
         p_start()
 
@@ -72,7 +71,7 @@ def nc_check():
 
     elif n_c == 'p':
         print(f'Preview of {P_NAME}.xml:\n\n')
-        os.system(f'cat ./xml_projects/{P_NAME}.xml')
+        pre_cat()
         print('\n\n')  
         nc_check()
 
@@ -104,7 +103,7 @@ def c_prompt():
 
     elif choice == 'p':
         print(f'Preview of {P_NAME}.xml:\n\n')
-        os.system(f'cat ./xml_projects/{P_NAME}.xml')
+        pre_cat()
         print('\n\n')
         c_prompt()
 
@@ -198,7 +197,7 @@ def ac_prompt():
 
     elif choice == 'p':
         print(f'Preview of {P_NAME}.xml:\n\n')
-        os.system(f'cat ./xml_projects/{P_NAME}.xml')
+        pre_cat()
         print('\n\n')
         ac_prompt()
 
@@ -238,28 +237,32 @@ def ac_prompt():
 print('\n\n :: Welcome to XMLfmt :: \n')
 
 def mk_dir():
-    if (platform.system) == 'Linux':
-        os.system('./xtra.sh')
-    else:
+    if platform.system() == 'Windows' and not os.path.exists('.\\xml_projects'):
         os.system(f'mkdir xml_projects')
         os.system(f'echo "Saving files to .\\xml_projects"')
+    elif platform.system() == 'Windows' and os.path.exists('.\\xml_projects'):
+        os.system(f'echo "Saving files to .\\xml_projects"')
+    elif not os.path.exists('./xml_projects'):
+        # os.system('./xtra.sh')
+        os.system(f'mkdir xml_projects')
+        os.system(f'echo "Saving files to ./xml_projects"')
+    else:
+        os.system(f'echo "Saving files to ./xml_projects"')
 
 def app_file(ctx):
     lin_dir = f'./xml_projects/{P_NAME}.xml'
     win_dir = f'.\\xml_projects\\{P_NAME}.xml'
-    if (platform.system) == 'Windows':
+    if platform.system() == 'Windows':
         os.system(f"echo '{str(ctx)}' >> {win_dir}")
     else:
         os.system(f"echo '{str(ctx)}' >> {lin_dir}")
    
 def pre_cat():
-    if (platform.system) == 'Windows':
+    if platform.system() == 'Windows':
         os.system(f'cat .\\xml_projects\\{P_NAME}.xml')
     else:
         os.system(f'cat ./xml_projects/{P_NAME}.xml')
   
-
-
 mk_dir()
 p_start()
 
