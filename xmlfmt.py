@@ -13,7 +13,7 @@ def p_start():
         p_start()
     elif cmd_start == 'f':
         global P_NAME
-        P_NAME = input('Project Name:\n')
+        P_NAME = input('Project Name:\n').replace(' ', '_')
         app_file(f'  :: {P_NAME} :: \n\n<xml>')
         app_menu()
     elif cmd_start == '?':
@@ -40,26 +40,26 @@ def p_start():
 
     elif cmd_start == 'w':
         app_file('</xml>\n\n')
-        P_NAME = input('\nNew project name: ')
+        P_NAME = input('\nNew project name: ').replace(' ', '_')
         p_start()
 
     elif cmd_start == 'k':
         def kill_script():
             if (platform.system) == 'Windows':
-                os.system(f'rm -rf .\\xml_projects\\{P_NAME}.xml')
+                print('Error: killscript() not compatible with Windows at this time')
             else:
                 os.system(f'rm -rf ./xml_projects/{P_NAME}.xml')
         kill_script()
         p_start()
 
     elif cmd_start == 'r':
-        P_NAME = input('\nNew project name: ')
+        P_NAME = input('\nNew project name: ').replace(' ', '_')
         app_menu()
 
-    elif cmd_start =='q':
+    elif cmd_start == 'q':
         return exit
 
-    elif cmd_start =='p':
+    elif cmd_start == 'p':
         print(f'Preview of {P_NAME}.xml:\n\n')
         pre_cat()
         print('\n\n')
@@ -244,11 +244,12 @@ def ac_prompt():
 #RUN
 
 def mk_dir():
-    if platform.system() == 'Windows' and not os.path.exists('.\\xml_projects'):
-        os.system(f'mkdir xml_projects')
-        print('Saving files to .\\xml_projects')
-    elif platform.system() == 'Windows' and os.path.exists('.\\xml_projects'):
-        print('Saving files to .\\xml_projects')
+    if platform.system() == 'Windows':
+        if not os.path.exists('.\\xml_projects'):
+            os.system(f'mkdir xml_projects')
+            print('Saving files to .\\xml_projects')
+        else:
+            print('Saving files to .\\xml_projects')
     elif not os.path.exists('./xml_projects'):
         os.system(f'mkdir xml_projects')
         print('Saving files to ./xml_projects')
