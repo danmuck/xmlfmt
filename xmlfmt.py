@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # basic [in progress] XML formatter in Python3 + BASH 
-# *maybe works with Powershell on Windows
+# *probably works with Powershell on Windows
 
 import os, platform
 
