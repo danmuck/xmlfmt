@@ -76,6 +76,10 @@ def app_menu():
     elif m_opt == 'f':
         app_file(f'\n\n<xml>')
         xml_class()
+    
+    elif m_opt == 'a':
+        app_file(f'\n\n<xml>')
+        xml_activity()
 
     elif m_opt == 'p':
         print(f'Preview of {P_NAME}.xml:\n\n')
@@ -190,10 +194,10 @@ def xml_activity():
     ac_prompt()
 
 def ac_prompt(): 
-    choice = input('Activity | \n| [1]statement [2]selection [3] [4] [5]\n| [f]new [w]end [p]pr [?]help\n\n:')
+    choice = input('Activity | \n| [1]sequence [2]statement [3]selection [4] [5]\n| [f]new [w]end [p]pr [?]help\n\n:')
 
     if choice == '?':
-        print('\n\n [1]\n [2]\n [3]\n [4]\n [5]\n [f]newactivity\n [w]endactivity \n [p]preview \n [q]exit\n\n')
+        print('\n\n [1]sequence\n [2]statement\n [3]\n [4]\n [5]\n [f]newactivity\n [w]endactivity \n [p]preview \n [q]exit\n\n')
         ac_prompt()
 
     elif choice == 'f':
@@ -210,19 +214,26 @@ def ac_prompt():
         ac_prompt()
 
     elif choice == '1':
-        inh_name = input('Inherits: ')
-        app_file(f'\t\t<inherits>{inh_name}</inherits>')
+        inh_name = input('Sequence: ')
+        app_file(f'\t\t<sequence>{inh_name}')
         ac_prompt()
 
     elif choice == '2':
-        pb_name = input('Property Name: ')
-        app_file(f'\t\t<property>\n\t\t\t<name>{pb_name}</name>\n\t\t</property>')
+        pb_name = input('Statement: ')
+        app_file(f'\t\t\t<statement>{pb_name}</statement>')
         ac_prompt()
 
     elif choice == '3':
-        p_name = input('Property Name: ')
-        p_type = input('Property Type: ')
-        app_file(f'\t\t<property>\n\t\t\t<name>{p_name}</name>\n\t\t\t<type>{p_type}</type>\n\t\t</property>')
+        p_name = input('Condition: ')
+        trufa = input('[t]rue or [f]alse: ')
+        if trufa == 't':
+            trufa = 'true'
+        elif trufa == 'f':
+            trufa = 'false'
+        else:
+            print('error')
+            ac_prompt()
+        app_file(f'\t\t\t<selection>\n\t\t\t\t<condition>{p_name}</condition>\n\t\t\t\t<{trufa}>')
         ac_prompt()
 
     elif choice == '4':
