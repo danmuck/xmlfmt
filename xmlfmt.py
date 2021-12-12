@@ -196,6 +196,9 @@ def xml_activity():
 def ac_prompt(): 
     choice = input('Activity | \n| [1]sequence [2]statement [3]selection [4] [5]\n| [f]new [w]end [p]pr [?]help\n\n:')
 
+    def sel_menu():
+        ac_prompt()
+
     if choice == '?':
         print('\n\n [1]sequence\n [2]statement\n [3]statement\n [4]\n [5]\n [f]newactivity\n [w]endactivity \n [p]preview \n [q]exit\n\n')
         ac_prompt()
@@ -227,14 +230,15 @@ def ac_prompt():
         p_name = input('Condition: ')
         trufa = input('[t]rue or [f]alse: ')
         if trufa == 't':
-            trufa = 'true'
+            app_file(f'\t\t\t<selection>\n\t\t\t\t<condition>{p_name}</condition>\n\t\t\t\t<true>')
+            sel_menu()
         elif trufa == 'f':
-            trufa = 'false'
+            app_file(f'\t\t\t<selection>\n\t\t\t\t<condition>{p_name}</condition>\n\t\t\t\t<false>')
+            sel_menu()
         else:
             print('error')
             ac_prompt()
-        app_file(f'\t\t\t<selection>\n\t\t\t\t<condition>{p_name}</condition>\n\t\t\t\t<{trufa}>')
-        ac_prompt()
+
 
     elif choice == '4':
         mb_name = input(': ')
