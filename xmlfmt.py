@@ -146,7 +146,7 @@ def c_prompt():
         m_add()
     
     elif choice == 'q':
-        p_start()
+        app_menu()
 
     else:
         c_prompt()
@@ -197,7 +197,7 @@ def ac_prompt():
     choice = input('Activity | \n| [1]sequence [2]statement [3]selection [4] [5]\n| [f]new [w]end [p]pr [?]help\n\n:')
 
     if choice == '?':
-        print('\n\n [1]sequence\n [2]statement\n [3]\n [4]\n [5]\n [f]newactivity\n [w]endactivity \n [p]preview \n [q]exit\n\n')
+        print('\n\n [1]sequence\n [2]statement\n [3]statement\n [4]\n [5]\n [f]newactivity\n [w]endactivity \n [p]preview \n [q]exit\n\n')
         ac_prompt()
 
     elif choice == 'f':
@@ -237,17 +237,17 @@ def ac_prompt():
         ac_prompt()
 
     elif choice == '4':
-        mb_name = input('Method name: ')
+        mb_name = input(': ')
         app_file(f'\t\t<method>\n\t\t\t<name>{mb_name}</name>\n\t\t</method>')
         ac_prompt()
 
     elif choice == '5':
-        m_name = input('Method name: ')
+        m_name = input(': ')
         app_file(f'\t\t<method>\n\t\t\t<name>{m_name}</name>')
         m_add()
     
     elif choice == 'q':
-        p_start()
+        app_menu()
 
     else:
         ac_prompt()
